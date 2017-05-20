@@ -1,0 +1,30 @@
+#include <iostream>
+#include <math.h>
+#include <iomanip>
+
+    //задаваемая функция по которой ищется интеграл
+ double f (double x,double y) 
+ {
+  return sin(100*x*sin(y));
+}
+//вычисление интеграла методом ячеек
+double calc(double xa, double xb, int n, double ya, double yb, int m) 
+{
+    //вычисление шага итерации аргументов функции
+    double xh=(xb-xa)/n;
+    double yh=(yb-ya)/m;
+    double s=0;
+    for (double xi=xa+xh/2; xi<xb; xi+=xh) 
+	{
+        for (double yi=ya+yh/2; yi<yb; yi+=yh) 
+		{
+            s += f(xi, yi);
+        }
+    }
+    return xh*yh*s;
+}
+int main () 
+{
+	std::cout<<std::fixed<<std::setprecision(16)<<calc(0, M_PI/2, 1000, 0, M_PI/2, 1000);
+	return 0;	
+}
